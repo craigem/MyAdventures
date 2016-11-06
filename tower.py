@@ -3,6 +3,7 @@
 # Import necessary modules.
 import mcpi.minecraft as minecraft
 import mcpi.block as block
+import random
 
 # Connect to Minecraft.
 mc = minecraft.Minecraft.create()
@@ -59,10 +60,11 @@ def tower():
         )
 
     # Add some carpet
+    c = random.randint(0, 15)
     mc.setBlocks(
         x + 1, y - 1, z + 1,
         x + SIZE - 2, y - 1, z + SIZE - 2,
-        block.WOOL.id, 14
+        block.WOOL.id, c
         )
 
 # Get your position:
