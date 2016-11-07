@@ -16,10 +16,7 @@ def buildBridge():
     b = mc.getBlock(pos.x, pos.y - 1, pos.z)
     # Work out if the player is safe or not
     if b == block.AIR.id or b == block.WATER_STATIONARY.id or b == block.WATER_FLOWING.id:
-        mc.postToChat("not safe")
-    else:
-        mc.postToChat("safe")
+        mc.setBlock(pos.x, pos.y - 1, pos.z, block.GLASS.id)
 
 while True:
-    time.sleep(0.5)
     buildBridge()
