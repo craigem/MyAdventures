@@ -31,7 +31,24 @@ def placeTreasure():
     mc.setBlock(treasure_x, treasure_y, treasure_z, block.DIAMOND_BLOCK.id)
 
 def checkHit():
-    print("checkHit")
+    # Pull in the global variables that we need:
+    global score
+    global treasure_x
+    # Check for hit events:
+    events = mc.events.pollBlockHits()
+    # Process each event:
+    for e in events:
+    # Get the hit coordinates:
+        pos = e.pos
+        # Check the position of the hit vs position of the treasure:
+        if pos.x == treasure_x and pos.y == treasure_y and pos.z == treasure_z:
+            mc.postToChat("HIT!")
+            # Add points to score for hitting the treasure:
+            score  = score + 10
+            # Make the treasure disappear:
+            mc.setBlock(treasure_x, treasure_y, treasure_z, block.AIR.id)
+            treasure_x = None
+
 
 def homingBeacon():
     print("homingBeacon")
