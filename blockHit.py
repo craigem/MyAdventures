@@ -23,7 +23,7 @@ mc.setBlock(
 mc.postToChat("HIT that block!")
 
 
-# function to check for hits
+# function to check for right-click sword hits
 def checkHit():
     # Check for hit events
     events = mc.events.pollBlockHits()
