@@ -29,6 +29,8 @@ z = ORIGIN_Z
 
 # Loop through every line in the maze file
 for line in f.readlines():
+    # Remove pesky new lines and any other unwanted whitespace
+    line = line.rstrip()
     # split the line every time a comma is reached
     data = line.split(",")
     # reset the x coordinate
