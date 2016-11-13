@@ -4,3 +4,6 @@ Build up with sand then knock out the bottom block to see gravity work
 Use both first-person and third-person views interchangeably
 Double tap space bar to fly into the sky
 Never run with scissors
+Don't eat the salmon mousse
+Don't mine straight mine
+Don't charge at mobs without a weapon
