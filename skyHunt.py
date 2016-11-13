@@ -107,7 +107,7 @@ def buildBridge():
         score = score - 1
 
 while True:
-    time.sleep(1)
+    time.sleep(0.1)
 
     if treasure_x == None and len(bridge) == 0:
         placeTreasure()
