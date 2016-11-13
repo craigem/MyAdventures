@@ -70,10 +70,41 @@ def homingBeacon():
             # Display score and estimate to treasure location on the Minecraft chat
             mc.postToChat("score: " + str(score) + " treasure: " + str(diff))
 
+# initialise the bridge array
 bridge = []
 
+# Define a function to build a bridge of gold blocks
 def buildBridge():
-    print("buildBridge")
+    # List the score variable as global
+    global score
+    # Get the position of the player
+    pos = mc.player.getTilePos()
+    # Get the id of the block directly below the player
+    b = mc.getBlock(pos.x, pos.y - 1, pos.z)
+
+    # Has the treasure been found and deleted?
+    if treasure_x == None:
+        # Are there still blocks remaining in the gold bridge?
+        if len(bridge) > 0:
+            # Remove the last coordinate of the bridge from the bridge list
+            coordinate = bridge.pop()
+            # Delete that block of the bridge by setting it to AIR
+            mc.setBlock(
+                coordinate[0], coordinate[1], coordinate[2], block.AIR.id)
+            # Display a helpful countdown message on the Minecraft chat
+            mc.postToChat("bridge: " + str(len(bridge)))
+            # Delay for a while, so that the bridge disappears slowly
+            time.sleep(0.25)
+    elif b != block.GOLD_BLOCK.id:
+        # There is treasure, and you are not already standing on gold
+        # build another gold block below your player
+        mc.setBlock(pos.x, pos.y - 1, pos.z, block.GOLD_BLOCK.id)
+        # Remember the coordinate of this new gold block...
+        coordinate = [pos.x, pos.y - 1, pos.z]
+        # ...by adding it to the end of the bridge list
+        bridge.append(coordinate)
+        # You loose one point for each block of the bridge that is built
+        score = score - 1
 
 while True:
     time.sleep(1)
