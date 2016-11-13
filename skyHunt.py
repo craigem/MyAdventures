@@ -49,9 +49,26 @@ def checkHit():
             mc.setBlock(treasure_x, treasure_y, treasure_z, block.AIR.id)
             treasure_x = None
 
+# Create a timer variable that counts 10 loops of the game loop
+TIMEOUT = 10
+timer = TIMEOUT
 
+# Define a function that displays the homing beacon on the Minecraft chat
 def homingBeacon():
-    print("homingBeacon")
+    global timer
+    if treasure_x != None:
+        timer = timer - 1
+        if timer == 0:
+            timer = TIMEOUT
+            # Get the position of the player
+            pos = mc.player.getTilePos()
+            # Calculate a rough number that estimates distance to the treasure
+            diffx = abs(pos.x - treasure_x)
+            diffy = abs(pos.y - treasure_y)
+            diffz = abs(pos.z - treasure_z)
+            diff = diffx + diffy + diffz
+            # Display score and estimate to treasure location on the Minecraft chat
+            mc.postToChat("score: " + str(score) + " treasure: " + str(diff))
 
 bridge = []
 
