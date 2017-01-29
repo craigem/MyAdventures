@@ -11,6 +11,7 @@ mc = minecraft.Minecraft.create()
 # Set a base size for the house.
 SIZE = 20
 
+
 # Create the house function.
 def house():
 
@@ -66,6 +67,7 @@ def house():
         x + SIZE - 2, y - 1, z + SIZE - 2,
         block.WOOL.id, c
         )
+
 
 # Create the second house function.
 def house2():
@@ -123,6 +125,7 @@ def house2():
         block.WOOL.id, c
         )
 
+
 # Create the third house function.
 def house3():
 
@@ -178,6 +181,7 @@ def house3():
         x + SIZE - 2, y - 1, z + SIZE - 2,
         block.WOOL.id, c
         )
+
 
 # Get your position:
 pos = mc.player.getTilePos()
