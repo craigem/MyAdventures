@@ -20,6 +20,6 @@ f.close()
 
 # The game loop that waits a random length of time between 3 and 7 seconds:
 while True:
-    time.sleep(random.randint(3,7))
+    time.sleep(random.randint(3, 7))
     msg = random.choice(tips)
     mc.postToChat(msg.strip())
