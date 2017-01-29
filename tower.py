@@ -11,6 +11,7 @@ mc = minecraft.Minecraft.create()
 # Set a base size for the house.
 SIZE = 20
 
+
 # Create the tower function.
 def tower():
 
@@ -66,6 +67,7 @@ def tower():
         x + SIZE - 2, y - 1, z + SIZE - 2,
         block.WOOL.id, c
         )
+
 
 # Get your position:
 pos = mc.player.getTilePos()
