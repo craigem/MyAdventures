@@ -32,7 +32,10 @@ def checkHit():
         # Get the hit coordinates
         pos = e.pos
         # Check the position of the hit vs position of the diamond
-        if pos.x == diamond_pos.x and pos.y == diamond_pos.y and pos.z == diamond_pos.z:
+        if pos.x == diamond_pos.x
+        and pos.y == diamond_pos.y
+        and pos.z == diamond_pos.z:
+
             if e.face == 1:
                 mc.postToChat("HIT on the top side!")
             elif e.face == 2:
@@ -45,6 +48,7 @@ def checkHit():
                 mc.postToChat("HIT on the East side!")
             else:
                 mc.postToChat("HIT on the bottom side! (ooh-er)")
+
 
 # Game loop
 while True:
