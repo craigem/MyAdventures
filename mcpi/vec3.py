@@ -67,13 +67,17 @@ class Vec3:
             return dz
         return 0
 
-    def iround(self): self._map(lambda v: int(v+0.5))
+    def iround(self):
+        self._map(lambda v: int(v+0.5))
 
-    def ifloor(self): self._map(int)
+    def ifloor(self):
+        self._map(int)
 
-    def rotateLeft(self):  self.x, self.z = self.z, -self.x
+    def rotateLeft(self):
+        self.x, self.z = self.z, -self.x
 
-    def rotateRight(self): self.x, self.z = -self.z, self.x
+    def rotateRight(self):
+        self.x, self.z = -self.z, self.x
 
 
 def testVec3():
