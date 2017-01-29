@@ -10,7 +10,7 @@ from util import flatten
     Note: many methods have the parameter *arg. This solution makes it
     simple to allow different types, and variable number of arguments.
     The actual magic is a mix of flatten_parameters() and __iter__. Example:
-    A Cube class could implement __iter__ to work in Minecraft.setBlocks(c, id).
+    A Cube class could implement __iter__ to work in Minecraft.setBlocks(c, id)
 
     (Because of this, it's possible to "erase" arguments. CmdPlayer removes
      entityId, by injecting [] that flattens to nothing)
@@ -20,6 +20,7 @@ from util import flatten
 
 def intFloor(*args):
     return [int(math.floor(x)) for x in flatten(args)]
+
 
 class CmdPositioner:
     """Methods for setting and getting positions"""
@@ -47,7 +48,9 @@ class CmdPositioner:
 
     def setting(self, setting, status):
         """Set a player setting (setting, status). keys: autojump"""
-        self.conn.send(self.pkg + ".setting", setting, 1 if bool(status) else 0)
+        self.conn.send(
+            self.pkg + ".setting", setting, 1 if bool(status) else 0
+            )
 
 
 class CmdEntity(CmdPositioner):
@@ -64,12 +67,16 @@ class CmdPlayer(CmdPositioner):
 
     def getPos(self):
         return CmdPositioner.getPos(self, [])
+
     def setPos(self, *args):
         return CmdPositioner.setPos(self, [], args)
+
     def getTilePos(self):
         return CmdPositioner.getTilePos(self, [])
+
     def setTilePos(self, *args):
         return CmdPositioner.setTilePos(self, [], args)
+
 
 class CmdCamera:
     def __init__(self, connection):
@@ -163,11 +170,12 @@ class Minecraft:
         self.conn.send("chat.post", msg)
 
     def setting(self, setting, status):
-        """Set a world setting (setting, status). keys: world_immutable, nametags_visible"""
+        """Set a world setting (setting, status). keys: world_immutable,
+        nametags_visible"""
         self.conn.send("world.setting", setting, 1 if bool(status) else 0)
 
     @staticmethod
-    def create(address = "localhost", port = 4711):
+    def create(address="localhost", port=4711):
         return Minecraft(Connection(address, port))
 
 
