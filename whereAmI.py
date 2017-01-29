@@ -5,7 +5,7 @@ mc = minecraft.Minecraft.create()
 pos = mc.player.getTilePos()
 
 mc.postToChat(
-       "x = " + str(pos.x) + "; " +
-       "y = " + str(pos.y) + "; " +
-       "z = " + str(pos.z)
-       )
+    "x = " + str(pos.x) + "; " +
+    "y = " + str(pos.y) + "; " +
+    "z = " + str(pos.z)
+    )
