@@ -1,0 +1,16 @@
+before_script:
+  - apt install python-pep8 pylint python-nose python-argcomplete
+
+stages:
+  - test
+
+basic-tests:
+  stage: test
+  script:
+    - pep8 --show-source --show-pep8 ./
+    - pylint ./
+    - nosetests
+  only:
+    - master
+  tags:
+    - python
