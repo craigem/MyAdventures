@@ -22,7 +22,7 @@ while True:
         rent = rent + 1
         mc.postToChat("You owe rent: " + str(rent))
         inField = inField + 1
-    else: # not inside the field
+    else:  # not inside the field
         inField = 0
     if inField > 3:
         mc.postToChat("Too slow!")
