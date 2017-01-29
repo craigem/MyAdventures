@@ -23,7 +23,7 @@
 # see that there is not really any magic in driving such a simple
 # display.
 
-#===== PATTERN TABLES ==================================================
+# ==== PATTERN TABLES ==================================================
 #
 # A 7-segment display looks like this:
 #
@@ -50,13 +50,13 @@
 # a GPIO pin list, which is then used to turn the appropriate GPIO
 # pins on and off.
 
-A  = 0
-B  = 1
-C  = 2
-D  = 3
-E  = 4
-F  = 5
-G  = 6
+A = 0
+B = 1
+C = 2
+D = 3
+E = 4
+F = 5
+G = 6
 DP = 7
 
 
@@ -99,7 +99,7 @@ patterns = {
   "up":    [A, B, F],
   "down":  [C, D, E],
   "error": [A, D, G],
-  " "    : []
+  " ":     []
 }
 
 # These are global variables.
@@ -123,97 +123,107 @@ GPIO = None
 pins = None
 on = True
 
+
 def setup(app_gpio, app_pins, on_state):
-  """Configure the GPIO driver and 8 used pins for display"""
-  global GPIO, pins, on
-  GPIO = app_gpio
-  pins = app_pins
-  on = on_state
-  for p in pins:
-    GPIO.setup(p, GPIO.OUT)
-    GPIO.output(p, False)
-  
+    """Configure the GPIO driver and 8 used pins for display"""
+    global GPIO, pins, on
+    GPIO = app_gpio
+    pins = app_pins
+    on = on_state
+    for p in pins:
+        GPIO.setup(p, GPIO.OUT)
+        GPIO.output(p, False)
+
+
 def clear():
-  """clear the display, turn all segments off"""
-  writeLEDs([])
-  
+    """clear the display, turn all segments off"""
+    writeLEDs([])
+
+
 def write(patternName):
-  """look up the pattern name in the table, and display it"""
-  try:
-    leds = patterns[patternName]
-  except KeyError:
-    leds = patterns["error"]
-  writeLEDs(leds)
-  
+    """look up the pattern name in the table, and display it"""
+    try:
+        leds = patterns[patternName]
+    except KeyError:
+        leds = patterns["error"]
+    writeLEDs(leds)
+
+
 def setdp(state):
-  """turn decimal point on or off"""
-  if type(state) == bool and state == True or type(state)==int and state!=0:
-    GPIO.output(pins[DP], on)
-  else:
-    GPIO.output(pins[DP], not on)
-  
-def writeLEDs(leds):
-  """Take a list of LEDs that need turning on, and turn only those on"""
-  for seg in [A,B,C,D,E,F,G,DP]:
-    if seg in leds:
-      GPIO.output(pins[seg], on)
+    """turn decimal point on or off"""
+    if type(state) == bool
+    and state is True
+    or type(state) == int
+    and state != 0:
+        GPIO.output(pins[DP], on)
     else:
-      GPIO.output(pins[seg], not on)
+        GPIO.output(pins[DP], not on)
+
+
+def writeLEDs(leds):
+    """Take a list of LEDs that need turning on, and turn only those on"""
+    for seg in [A, B, C, D, E, F, G, DP]:
+        if seg in leds:
+            GPIO.output(pins[seg], on)
+        else:
+            GPIO.output(pins[seg], not on)
+
 
 def writePattern(pattern):
-  """Take a list of flags and write that to the LEDs
-     Unlisted LEDs are unchanged. A boolean or a number can be used.
-  """
-  l = len(pattern)
-  if l>8:
-    l=8
-  for seg in range(A, l):
-    state = not on
-    p = pattern[seg]
-    if type(p) == bool:
-      if p==True:
-        state = on
-    elif type(p) == int:
-      if p!=0:
-        state = on
-    else:
-      if p!=None:
-        state = on
-    GPIO.output(pins[seg], state)
-      
+    """Take a list of flags and write that to the LEDs
+    Unlisted LEDs are unchanged. A boolean or a number can be used.
+    """
+    length = len(pattern)
+    if length > 8:
+        length = 8
+    for seg in range(A, length):
+        state = not on
+        p = pattern[seg]
+        if type(p) == bool:
+            if p is True:
+                state = on
+        elif type(p) == int:
+            if p != 0:
+                state = on
+        else:
+            if p is not None:
+                state = on
+        GPIO.output(pins[seg], state)
+
+
 # A useful helper, to do this with default pinning:
 #   import seg7 as d
 #   d.configure()
 #   d.clear()
 #   d.write("8")
 #   d.setdp(True)
-   
+
 def configure(ON=True):
-  try:
-    print("Trying Raspberry Pi")
-    import RPi.GPIO as GPIO
-    GPIO.setmode(GPIO.BCM)
-    setup(GPIO, [10, 11, 14, 15, 17, 18, 22, 23], ON)
-    print("Raspberry Pi OK")
-      
-  except ImportError:
-    print("Trying Arduino")
-    import anyio.GPIO as GPIO
-    GPIO.setmode(GPIO.BCM)
-    setup(GPIO, [7, 6, 14, 16, 10, 8, 9, 15], ON)
-    print("Arduino OK")
+    try:
+        print("Trying Raspberry Pi")
+        import RPi.GPIO as GPIO
+        GPIO.setmode(GPIO.BCM)
+        setup(GPIO, [10, 11, 14, 15, 17, 18, 22, 23], ON)
+        print("Raspberry Pi OK")
+
+    except ImportError:
+        print("Trying Arduino")
+        import anyio.GPIO as GPIO
+        GPIO.setmode(GPIO.BCM)
+        setup(GPIO, [7, 6, 14, 16, 10, 8, 9, 15], ON)
+        print("Arduino OK")
 
 
 # test harness
 
 if __name__ == "__main__":
-  import time
-  configure()
-    
-  clear()
-  for v in patterns:
-    print("trying:" + v)
-    write(v)
-    time.sleep(0.5)
-    
+    import time
+    configure()
+
+    clear()
+    for v in patterns:
+        print("trying:" + v)
+        write(v)
+        time.sleep(0.5)
+
 # END
