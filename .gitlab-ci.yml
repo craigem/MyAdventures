@@ -1,5 +1,5 @@
 before_script:
-  - apt install python-pep8 pylint python-nose python-argcomplete
+  - apt install pep8 pylint python-nose python-argcomplete
 
 stages:
   - test
