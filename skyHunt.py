@@ -20,15 +20,17 @@ treasure_x = None
 treasure_y = None
 treasure_z = None
 
+
 def placeTreasure():
     global treasure_x, treasure_y, treasure_z
     # Get the player's position
     pos = mc.player.getTilePos()
     # randomly place the  treasure no more than RANGE away.
     treasure_x = random.randint(pos.x, pos.x + RANGE)
-    treasure_y = random.randint(pos.y +2, pos.y + RANGE)
+    treasure_y = random.randint(pos.y + 2, pos.y + RANGE)
     treasure_z = random.randint(pos.z, pos.z + RANGE)
     mc.setBlock(treasure_x, treasure_y, treasure_z, block.DIAMOND_BLOCK.id)
+
 
 def checkHit():
     # Pull in the global variables that we need:
@@ -38,25 +40,27 @@ def checkHit():
     events = mc.events.pollBlockHits()
     # Process each event:
     for e in events:
-    # Get the hit coordinates:
+        # Get the hit coordinates:
         pos = e.pos
         # Check the position of the hit vs position of the treasure:
         if pos.x == treasure_x and pos.y == treasure_y and pos.z == treasure_z:
             mc.postToChat("HIT!")
             # Add points to score for hitting the treasure:
-            score  = score + 10
+            score = score + 10
             # Make the treasure disappear:
             mc.setBlock(treasure_x, treasure_y, treasure_z, block.AIR.id)
             treasure_x = None
+
 
 # Create a timer variable that counts 10 loops of the game loop
 TIMEOUT = 10
 timer = TIMEOUT
 
+
 # Define a function that displays the homing beacon on the Minecraft chat
 def homingBeacon():
     global timer
-    if treasure_x != None:
+    if treasure_x is not None:
         timer = timer - 1
         if timer == 0:
             timer = TIMEOUT
@@ -67,11 +71,14 @@ def homingBeacon():
             diffy = abs(pos.y - treasure_y)
             diffz = abs(pos.z - treasure_z)
             diff = diffx + diffy + diffz
-            # Display score and estimate to treasure location on the Minecraft chat
+            # Display score and estimate to treasure location on the
+            # Minecraft chat
             mc.postToChat("score: " + str(score) + " treasure: " + str(diff))
+
 
 # initialise the bridge array
 bridge = []
+
 
 # Define a function to build a bridge of gold blocks
 def buildBridge():
@@ -83,7 +90,7 @@ def buildBridge():
     b = mc.getBlock(pos.x, pos.y - 1, pos.z)
 
     # Has the treasure been found and deleted?
-    if treasure_x == None:
+    if treasure_x is None:
         # Are there still blocks remaining in the gold bridge?
         if len(bridge) > 0:
             # Remove the last coordinate of the bridge from the bridge list
@@ -106,10 +113,11 @@ def buildBridge():
         # You loose one point for each block of the bridge that is built
         score = score - 1
 
+
 while True:
     time.sleep(0.1)
 
-    if treasure_x == None and len(bridge) == 0:
+    if treasure_x is None and len(bridge) == 0:
         placeTreasure()
 
     checkHit()
