@@ -58,11 +58,14 @@ class MinecraftDrawing:
         if (filled):
             # draw solid face
             # sort edges vertices
-            def keyX(point): return point.x
+            def keyX(point):
+                return point.x
 
-            def keyY(point): return point.y
+            def keyY(point):
+                return point.y
 
-            def keyZ(point): return point.z
+            def keyZ(point):
+                return point.z
             edgesVertices.sort(key=keyZ)
             edgesVertices.sort(key=keyY)
             edgesVertices.sort(key=keyX)
