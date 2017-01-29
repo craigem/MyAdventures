@@ -1,1 +1,1 @@
-# Python init file
+''' Python init file '''
