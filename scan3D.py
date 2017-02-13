@@ -27,7 +27,7 @@ def scan3D(filename, originx, originy, originz):
                     line = line + ","
                 line = line + str(blockid)
             f.write(line + "\n")
-        f.close()
+    f.close()
 
 # Read the player position
 pos = mc.player.getTilePos()
