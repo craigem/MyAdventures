@@ -1,8 +1,10 @@
-import mcpi.minecraft as minecraft
-import mcpi.block as block
+""" Set a block in minecraft """
 
-mc = minecraft.Minecraft.create()
+import MyAdventures.mcpi.minecraft as minecraft
+import MyAdventures.mcpi.block as block
 
-pos = mc.player.getTilePos()
+MC = minecraft.Minecraft.create()
 
-mc.setBlock(pos.x + 3, pos.y, pos.z, block.STONE.id)
+POS = MC.player.getTilePos()
+
+MC.setBlock(POS.x + 3, POS.y, POS.z, block.STONE.id)
