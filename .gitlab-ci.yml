@@ -9,7 +9,7 @@ basic-tests:
   stage: test
   script:
     - pep8 --show-source --show-pep8 ./
-    - pylint ./
+    - pylint ./*.py
     - nosetests
   only:
     - master
