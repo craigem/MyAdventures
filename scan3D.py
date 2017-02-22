@@ -11,6 +11,7 @@ SIZEX = 5
 SIZEY = 5
 SIZEZ = 5
 
+
 def scan3D(filename, originx, originy, originz):
     # Open the file in write mode
     f = open(filename, "w")
@@ -28,6 +29,7 @@ def scan3D(filename, originx, originy, originz):
                 line = line + str(blockid)
             f.write(line + "\n")
     f.close()
+
 
 # Read the player position
 pos = mc.player.getTilePos()
